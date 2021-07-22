@@ -1,5 +1,6 @@
 const childProcess = require('child_process')
 const once = require('one-time')
+const iconv = require('iconv-lite')     // add this line for Chinese support
 
 class SayPlatformBase {
   constructor () {
@@ -35,6 +36,7 @@ class SayPlatformBase {
     this.child.stdin.setEncoding('ascii')
     this.child.stderr.setEncoding('ascii')
 
+    pipedData = iconv.encode(pipedData, 'gbk')    // this line is for Chinese TTS with GBK encoding
     if (pipedData) {
       this.child.stdin.end(pipedData)
     }
@@ -96,6 +98,7 @@ class SayPlatformBase {
     this.child.stdin.setEncoding('ascii')
     this.child.stderr.setEncoding('ascii')
 
+    pipedData = iconv.encode(pipedData, 'gbk')    // this line is for Chinese GBK encoding, but has not been tested
     if (pipedData) {
       this.child.stdin.end(pipedData)
     }
