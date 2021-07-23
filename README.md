@@ -4,4 +4,7 @@
 4. The extension vscode-speech in VS-Code works well with this.
 5. Please find out the 3-lines-change in file [base.js](https://github.com/silence19/say.js/blob/master/platform/base.js).
 
+
+
+
 中文VSCode阅读与朗读tts方案见[知乎文章](https://zhuanlan.zhihu.com/p/392540945)
