@@ -8,4 +8,4 @@ The VSCode-Speech is using the Say.js, that's why I fixed several lines for Say.
 5. The extension vscode-speech in VS-Code works well with this modification.
 
 # 中文使用方法
-中文VSCode阅读与朗读tts方案见[知乎文章](https://zhuanlan.zhihu.com/p/392655592)
+中文VSCode阅读与朗读tts方案见[此处](Win10 PC 桌面端中文阅读解决方案.md)或者本人[知乎文章](https://zhuanlan.zhihu.com/p/392655592)
