@@ -13,39 +13,57 @@
 
 编码转换
 
+![](resource/pic_gbktoutf8.jpg)
+
 在VS Code中，我们会发现，很多文本打开是乱码。这是因为，很多中文txt文档都是ANSI/GBK编码，而VS Code是基于UTF-8编码。因此，一个插件解决问题：GBKtoUTF8，作者bukas，五星好评。并且这个插件还有额外的好处，此处暂且伏笔。
 
 ## 目录显示、目录折叠
 这两个功能放在一起，需要安装两个插件，分别为
-
-Txt Syntax 这个用于文本语法高亮、章节跳转、章节折叠
-
-txt book outline 这个用于更强的章节跳转
+- Txt Syntax 这个用于文本语法高亮、章节跳转、章节折叠
+- txt book outline 这个用于更强的章节跳转
 
 如果对于格式完美的文档，Txt Syntax就够。但对于很多文档的结构非常凌乱，Txt Syntax识别不太给力，就需要后者进行弥补。不过本人觉得尽量还是使之适应Txt Syntax，毕竟章节折叠可太香了。见下图：
 
 由Txt Syntax读取的目录，以及完美折叠示例
 
+![](resource/pic_outline_1.jpg)
+
 由 txt book outline 读取的目录，包含行号，可跳转，无法折叠
+
+![](resource/pic_outline_2.jpg)
 
 ## 语音朗读
 语音TTS(Text-To-Speech)方案是本文重点。理论上可以在Win10自带的朗读员Huihui支持下完美运行（尚未在多台机器进行调试，如有问题欢迎反馈）。
 具体分为如下几步：1.安装插件VSCode Speech，2.修改复制文件夹，3.修改两行脚本。
 
 1. 安装[VSCode Speech](https://link.zhihu.com/?target=https%3A//marketplace.visualstudio.com/items%3FitemName%3Dbierner.speech)，右键测试，能够听到……嗯，乱码。（如果无声或者英语口音请重新设置，建议设置最基本的Huihui做中文测试）
+
 2. 右键测试VSCode Speech发声
+3. 
+![](resource/pic_tts_test.jpg)
 
 中文语音为Huihui(女)，Yaoyao(女)和Kangkang(男)
+
+![](resource/pic_tts_set.jpg)
+
 2. 为了修复这个乱码，我们需要找到VS Code Insiders的插件文件夹，一般在用户文件夹形如“C:\Users\XXX\.vscode-insiders\extensions\”。然后就要用到之前的GBKtoUTF8插件。首先进入“bukas.gbktoutf8-0.0.2\node_modules\”将“iconv-lite”文件夹复制，粘贴到“bierner.speech-0.0.3\node_modules\”下。
 
 找到插件文件夹
 
+![](resource/pic_fix_1.jpg)
+
 将GBKtoUTF8下的iconv-lite文件夹复制到VSCode Speech文件夹下
+
+![](resource/pic_fix_2.jpg)
+
 3. 最后一步，让VS Code Speech使用iconv-lite进行编码转换。打开“bierner.speech-0.0.3\node_modules\say\platform\base.js”，加入两行代码，如下图所示
-const iconv = require('iconv-lite')
-pipedData = iconv.encode(pipedData, 'gbk') //注意，本段代码对应的前后文共有两处，我们用于朗读只需改speak函数中的那个，另一个export函数是用于生成wav的。
+- const iconv = require('iconv-lite')
+- pipedData = iconv.encode(pipedData, 'gbk') //注意，本段代码对应的前后文共有两处，我们用于朗读只需改speak函数中的那个，另一个export函数是用于生成wav的。
 
 加入两行代码进行编码转换
+
+![](resource/pic_fix_3.jpg)
+
 重新启动VS Code，再次使用VS Code Speech进行中文朗读，应该已经能正确发声了。
 
 ## 结语
